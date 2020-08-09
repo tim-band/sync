@@ -1,0 +1,13 @@
+- t: copy
+  from-root:
+    - t: path
+      path: /
+  to-root:
+    - t: path
+      path: /
+  from-file:
+    - t: path
+      path: /home/tim/source/sync/sync.cabal
+  to-files:
+      t: path
+      path: /home/tim/source/sync/result.txt
