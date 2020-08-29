@@ -12,6 +12,7 @@ import Data.Yaml (Object, Array, Value(..), Parser, decodeFileThrow, withArray, 
 import qualified Path
 import qualified Copy
 import qualified Drives
+import qualified Directories
 import TransformerParser (PathFinder, PathFinderO, PathFinderV, chain)
 import Data.List (foldl')
 import qualified Data.Vector as Vec
@@ -21,6 +22,7 @@ tags =
     [ (Copy.name, Copy.parser)
     , (Path.name, Path.parser)
     , (Drives.name, Drives.parser)
+    , (Directories.name, Directories.parser)
     ]
 
 parseObject :: PathFinderO

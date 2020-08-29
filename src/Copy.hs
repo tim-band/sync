@@ -6,6 +6,7 @@ import Data.Yaml (Value, Parser, (.:))
 import TransformerParser (PathFinderO, PathFinder, chain)
 import System.Directory (createDirectoryIfMissing, copyFile, doesPathExist)
 import System.Posix.Directory (changeWorkingDirectory)
+import Log (logInfo)
 
 name = "copy"
 
@@ -40,5 +41,8 @@ parser tr ob = do
                 fromFileV fromRoot `chain` \fromFile -> do
                     changeWorkingDirectory fromRoot
                     toFileV fromFile `chain` \toFile -> do
-                        ifM (doesPathExist toFile) (return []) $
-                            (copyFile fromFile toFile >> return [toFile])
+                        logInfo $ "maybe copy " ++ fromFile
+                        ifM (doesPathExist toFile) (return []) $ do
+                            logInfo $ "to " ++ toFile
+                            copyFile fromFile toFile
+                            return [toFile]

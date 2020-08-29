@@ -1,14 +1,22 @@
 module Directories (name, parser) where
 
-import Control.Monad (forM)
+import Control.Monad (forM, filterM)
+import Data.List (intercalate)
 import Data.Maybe (fromMaybe)
 import Data.Text (pack)
 import qualified Data.Yaml
 import TransformerParser (PathFinderO, chain)
-import System.Directory (listDirectory)
+import System.Directory (listDirectory, doesDirectoryExist)
 import System.FilePath ((</>))
+import Log (logInfo)
 
 name = "directories"
+
+inform :: IO [FilePath] -> IO [FilePath]
+inform iofps = do
+    fps <- iofps
+    logInfo ("directories:\n" ++ intercalate "\n" fps)
+    iofps
 
 (.!=) :: (Functor f) => f (Maybe a) -> a -> f a
 (.!=) pma d = fmap (fromMaybe d) pma
@@ -18,8 +26,8 @@ parser :: PathFinderO
 parser _ ob = doDirectories'
         <$> ob .:? "min-depth" .!= 1
         <*> ob .:? "max-depth" where
-    doDirectories' minD (Just maxD) = doDirectories minD maxD
-    doDirectories' minD Nothing = doDirectories minD minD
+    doDirectories' minD (Just maxD) input = inform $ doDirectories minD maxD input
+    doDirectories' minD Nothing input = inform $ doDirectories minD minD input
     doDirectories :: Int -> Int  -> FilePath -> IO [FilePath]
     doDirectories minD maxD input
         | minD <= 0 = do
@@ -27,6 +35,7 @@ parser _ ob = doDirectories'
             return $ input : dirs
         | maxD <= 0 = return []
         | otherwise = do
-            ds <- listDirectory input
+            ds' <- listDirectory input
+            ds <- filterM doesDirectoryExist ds'
             dss <- forM ds $ \d -> doDirectories (minD - 1) (maxD - 1) (input </> d)
             return $ concat dss

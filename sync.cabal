@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 6cf2cdaeec4ca1b98ddbb4909b85fbf061306a224983976255b393c0735f36d6
+-- hash: 173f3e2146f41062b2fc9a8e8c9cc296dc729d501e354cde5e59d9f3de33b2e4
 
 name:           sync
 version:        0.1.0.0
@@ -46,6 +46,7 @@ library
       Drives
       Filter
       FirstOf
+      Log
       Path
       Transformer
       TransformerParser

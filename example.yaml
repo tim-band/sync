@@ -1,13 +1,16 @@
 - t: copy
   from-root:
     - t: path
-      path: /
+      is: /home/tim/source/sync
+    - t: directories
+      max-depth: 1
   to-root:
-    - t: path
-      path: /
+    t: path
+    is: /home/tim/source/app
   from-file:
-    - t: path
-      path: /home/tim/source/sync/sync.cabal
-  to-files:
-      t: path
-      path: /home/tim/source/sync/result.txt
+    t: path
+    is: example.yaml
+  to-file:
+    t: path
+    is: example2.yaml
+
