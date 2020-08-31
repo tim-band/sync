@@ -4,6 +4,8 @@
       is: /home/tim/source/sync
     - t: directories
       max-depth: 1
+    - t: filter
+      type: d
   to-root:
     t: path
     is: /home/tim/source/app

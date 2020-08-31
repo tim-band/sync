@@ -35,7 +35,6 @@ parser _ ob = doDirectories'
             return $ input : dirs
         | maxD <= 0 = return []
         | otherwise = do
-            ds' <- listDirectory input
-            ds <- filterM doesDirectoryExist ds'
+            ds <- listDirectory input
             dss <- forM ds $ \d -> doDirectories (minD - 1) (maxD - 1) (input </> d)
             return $ concat dss

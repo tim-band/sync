@@ -7,22 +7,25 @@ module Transformer
 import Control.Applicative ((<$>))
 import Control.Monad (sequence)
 import Data.Aeson.Types (parseFail, prependFailure)
-import Data.Monoid ((<>))
-import Data.Yaml (Object, Array, Value(..), Parser, decodeFileThrow, withArray, withObject, (.:))
-import qualified Path
-import qualified Copy
-import qualified Drives
-import qualified Directories
-import TransformerParser (PathFinder, PathFinderO, PathFinderV, chain)
 import Data.List (foldl')
+import Data.Monoid ((<>))
 import qualified Data.Vector as Vec
+import Data.Yaml (Object, Array, Value(..), Parser, decodeFileThrow, withArray, withObject, (.:))
+
+import qualified Copy
+import qualified Directories
+import qualified Drives
+import qualified Filter
+import qualified Path
+import TransformerParser (PathFinder, PathFinderO, PathFinderV, chain)
 
 tags :: [(String, PathFinderO)]
 tags =
     [ (Copy.name, Copy.parser)
-    , (Path.name, Path.parser)
-    , (Drives.name, Drives.parser)
     , (Directories.name, Directories.parser)
+    , (Drives.name, Drives.parser)
+    , (Filter.name, Filter.parser)
+    , (Path.name, Path.parser)
     ]
 
 parseObject :: PathFinderO
