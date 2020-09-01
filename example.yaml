@@ -1,18 +1,18 @@
 - t: copy
   from-root:
+    - t: home
     - t: path
-      is: /home/tim/source/sync
-    - t: directories
-      max-depth: 1
-    - t: filter
-      type: d
+      is: Pictures
   to-root:
-    t: path
-    is: /home/tim/source/app
+    - t: home
+    - t: path
+      is: source/test
   from-file:
-    t: path
-    is: example.yaml
+    - t: directories
+      max-depth: 2
+    - t: filter
+      type: f
+      pattern: '*.jpg'
   to-file:
-    t: path
-    is: example2.yaml
-
+    t: date
+    format: '%Y/%m_%d'

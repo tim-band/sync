@@ -27,6 +27,7 @@ matchesStar pattern candidate@(_:candidate') = ms pattern candidate where
     ms ps@(_:_) [] = matches ps []
     ms [] (_:_) = ms pattern (drop (length candidate - length pattern) candidate)
     ms [] [] = True
+matchesStar pattern [] = matches pattern []
 
 -- match pattern against candidate
 matches :: String -> String -> Bool

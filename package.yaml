@@ -30,6 +30,7 @@ dependencies:
 - vector >= 0.12.1.2 && < 0.13
 - extra >= 1.6.21 && < 2
 - text >= 1.2.4.0 && < 2
+- time >= 1.9.2 && < 2
 
 library:
   source-dirs: src

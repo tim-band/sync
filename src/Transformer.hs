@@ -13,18 +13,22 @@ import qualified Data.Vector as Vec
 import Data.Yaml (Object, Array, Value(..), Parser, decodeFileThrow, withArray, withObject, (.:))
 
 import qualified Copy
+import qualified DatePath
 import qualified Directories
 import qualified Drives
 import qualified Filter
+import qualified Home
 import qualified Path
 import TransformerParser (PathFinder, PathFinderO, PathFinderV, chain)
 
 tags :: [(String, PathFinderO)]
 tags =
     [ (Copy.name, Copy.parser)
+    , (DatePath.name, DatePath.parser)
     , (Directories.name, Directories.parser)
     , (Drives.name, Drives.parser)
     , (Filter.name, Filter.parser)
+    , (Home.name, Home.parser)
     , (Path.name, Path.parser)
     ]
 
