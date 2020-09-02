@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 44bf0afda45328d74777916c8eb457ea5cef284429f2e6b2446d6625ec692d34
+-- hash: 982d214986f8920be934fa96657795587fe12e5730221dfce5d9903cc58db7a8
 
 name:           sync
 version:        0.1.0.0
@@ -41,13 +41,11 @@ library
     , vector >=0.12.1.2 && <0.13
     , yaml >=0.11.4.0 && <0.12
   exposed-modules:
-      All
       Copy
       DatePath
       Directories
       Drives
       Filter
-      FirstOf
       Home
       Log
       Path
