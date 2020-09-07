@@ -12,6 +12,7 @@ import Data.Monoid ((<>))
 import qualified Data.Vector as Vec
 import Data.Yaml (Object, Array, Value(..), Parser, decodeFileThrow, withArray, withObject, (.:))
 
+import qualified All
 import qualified Copy
 import qualified DatePath
 import qualified Directories
@@ -24,7 +25,8 @@ import TransformerParser (PathFinder, PathFinderO, PathFinderV, chain)
 
 tags :: [(String, PathFinderO)]
 tags =
-    [ (Copy.name, Copy.parser)
+    [ (All.name, All.parser)
+    , (Copy.name, Copy.parser)
     , (DatePath.name, DatePath.parser)
     , (Directories.name, Directories.parser)
     , (Drives.name, Drives.parser)

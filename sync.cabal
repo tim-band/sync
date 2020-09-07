@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 18fed2a64d7d4e26ca7e9d8e15382936c96341c12b52d10e7a4ac4d2d6ee7ead
+-- hash: a66cc46fb0302b51e69d042e0795ec8df7f466358b37aaa58fad156702809c56
 
 name:           sync
 version:        0.1.0.0
@@ -41,6 +41,7 @@ library
     , vector >=0.12.1.2 && <0.13
     , yaml >=0.11.4.0 && <0.12
   exposed-modules:
+      All
       Copy
       DatePath
       Directories
