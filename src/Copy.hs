@@ -3,11 +3,12 @@ module Copy (name, parser) where
 import Control.Monad.Extra (ifM)
 import Data.Text (pack)
 import Data.Yaml (Value, Parser, (.:))
-import TransformerParser (PathFinderO, PathFinder, chain)
 import System.Directory (createDirectoryIfMissing, copyFile, doesPathExist)
 import System.FilePath (takeDirectory, (</>))
 import System.Posix.Directory (changeWorkingDirectory)
+
 import Log (logInfo)
+import PathFinder (PathFinderO, PathFinder, chain)
 
 name = "copy"
 

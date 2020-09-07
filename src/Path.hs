@@ -2,10 +2,11 @@ module Path (name, parser) where
 
 import Data.Text (pack)
 import Data.Yaml ((.:))
-import TransformerParser (PathFinderO)
 import System.Directory (makeAbsolute)
 import System.FilePath (isAbsolute, (</>))
+
 import Log (logInfo)
+import PathFinder (PathFinderO)
 
 name = "path"
 

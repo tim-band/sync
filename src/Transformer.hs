@@ -21,7 +21,7 @@ import qualified Filter
 import qualified First
 import qualified Home
 import qualified Path
-import TransformerParser (PathFinder, PathFinderO, PathFinderV, chain)
+import PathFinder (PathFinder, PathFinderO, PathFinderV, chain)
 
 tags :: [(String, PathFinderO)]
 tags =

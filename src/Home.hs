@@ -2,9 +2,10 @@ module Home (name, parser) where
 
 import Control.Applicative (pure)
 import Control.Monad (mapM_)
-import TransformerParser (PathFinderO)
 import System.Directory (getHomeDirectory)
+
 import Log (logInfo)
+import PathFinder (PathFinderO)
 
 name = "home"
 

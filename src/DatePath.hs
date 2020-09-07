@@ -4,9 +4,10 @@ import Data.Maybe (fromMaybe)
 import Data.Text (pack)
 import Data.Time.Format (formatTime, defaultTimeLocale)
 import qualified Data.Yaml
-import TransformerParser (PathFinderO, chain)
 import System.Directory (getModificationTime)
 import System.FilePath (takeFileName, (</>))
+
+import PathFinder (PathFinderO, chain)
 
 name = "date"
 

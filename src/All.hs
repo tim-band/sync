@@ -11,7 +11,7 @@ import System.FilePath (takeFileName)
 import System.Posix.Directory (changeWorkingDirectory)
 
 import Log (logInfo)
-import TransformerParser (PathFinderO, PathFinder, chain)
+import PathFinder (PathFinderO, PathFinder, chain)
 
 name = "all"
 

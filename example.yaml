@@ -1,22 +1,23 @@
 t: all
 of:
-  - t: path
-    is: /some/path
   - t: copy
     from-root:
+      - t: drives
+      - t: directories
+        max-depth: 2
+      - t: filter
+        type: d
+        pattern: DCIM
+    to-root:
       - t: first
         of:
-          - - t: path
-              is: /does/not/exist
-            - t: filter
-              type: d
-          - - t: home
-            - t: path
-              is: Pictures
-    to-root:
-      - t: home
-      - t: path
-        is: source/test
+          - - t: drives
+            - t: all
+              of:
+                - t: filter
+                  pattern: sileo-win-pictures
+                - t: filter
+                  pattern: sileo-wifi-pictures
     from-file:
       - t: directories
         max-depth: 2

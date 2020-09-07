@@ -2,9 +2,10 @@ module Drives (name, parser) where
 
 import Control.Applicative (pure)
 import Control.Monad (mapM_)
-import TransformerParser (PathFinderO)
 import System.MountPoints (Mntent, mnt_dir, mnt_type, getMounts)
+
 import Log (logInfo)
+import PathFinder (PathFinderO)
 
 name = "drives"
 

@@ -4,10 +4,11 @@ import qualified Data.Yaml
 import Data.List.Extra (split)
 import Data.Maybe (fromMaybe)
 import Data.Text (pack)
-import TransformerParser (PathFinderO, chain)
 import System.Directory (createDirectoryIfMissing, copyFile, doesPathExist, doesDirectoryExist, doesFileExist)
 import System.FilePath (takeFileName)
 import System.Posix.Directory (changeWorkingDirectory)
+
+import PathFinder (PathFinderO, chain)
 
 name = "filter"
 
@@ -39,7 +40,7 @@ matches [] (_:_) = False
 matches (p:ps) []
     | p == '*' = matches ps []
     | otherwise = False
-match [] []  = True
+matches [] []  = True
 
 parser :: PathFinderO
 parser _ ob = doFilter

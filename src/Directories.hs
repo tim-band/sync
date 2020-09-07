@@ -1,14 +1,16 @@
 module Directories (name, parser) where
 
+import Control.Exception (handle)
 import Control.Monad (forM, filterM)
 import Data.List (intercalate)
 import Data.Maybe (fromMaybe)
 import Data.Text (pack)
 import qualified Data.Yaml
-import TransformerParser (PathFinderO, chain)
 import System.Directory (listDirectory, doesDirectoryExist)
 import System.FilePath ((</>))
+
 import Log (logInfo)
+import PathFinder (PathFinderO, chain)
 
 name = "directories"
 
@@ -37,7 +39,7 @@ parser _ ob = doDirectories'
         | otherwise = do
             isDir <- doesDirectoryExist input
             if isDir then do
-                ds <- listDirectory input
+                ds <- handle ((\_ -> return []) :: IOError -> IO [FilePath]) (listDirectory input)
                 dss <- forM ds $ \d -> doDirectories (minD - 1) (maxD - 1) (input </> d)
                 return $ concat dss
             else return []

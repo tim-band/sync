@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: a66cc46fb0302b51e69d042e0795ec8df7f466358b37aaa58fad156702809c56
+-- hash: c1af96df7986d0324960e494fb9365ac764cfca56fc0614ad04148941dddc22c
 
 name:           sync
 version:        0.1.0.0
@@ -51,8 +51,8 @@ library
       Home
       Log
       Path
+      PathFinder
       Transformer
-      TransformerParser
   other-modules:
       Paths_sync
   default-language: Haskell2010

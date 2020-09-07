@@ -1,4 +1,4 @@
-module TransformerParser
+module PathFinder
     ( PathFinder
     , PathFinderO
     , PathFinderV(..)
