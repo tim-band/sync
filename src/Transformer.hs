@@ -17,6 +17,7 @@ import qualified DatePath
 import qualified Directories
 import qualified Drives
 import qualified Filter
+import qualified First
 import qualified Home
 import qualified Path
 import TransformerParser (PathFinder, PathFinderO, PathFinderV, chain)
@@ -28,6 +29,7 @@ tags =
     , (Directories.name, Directories.parser)
     , (Drives.name, Drives.parser)
     , (Filter.name, Filter.parser)
+    , (First.name, First.parser)
     , (Home.name, Home.parser)
     , (Path.name, Path.parser)
     ]

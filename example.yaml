@@ -1,8 +1,14 @@
 - t: copy
   from-root:
-    - t: home
-    - t: path
-      is: Pictures
+    - t: first
+      of:
+        - - t: path
+            is: /does/not/exist
+          - t: filter
+            type: d
+        - - t: home
+          - t: path
+            is: Pictures
   to-root:
     - t: home
     - t: path

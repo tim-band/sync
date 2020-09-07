@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 982d214986f8920be934fa96657795587fe12e5730221dfce5d9903cc58db7a8
+-- hash: 18fed2a64d7d4e26ca7e9d8e15382936c96341c12b52d10e7a4ac4d2d6ee7ead
 
 name:           sync
 version:        0.1.0.0
@@ -46,6 +46,7 @@ library
       Directories
       Drives
       Filter
+      First
       Home
       Log
       Path
