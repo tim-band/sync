@@ -8,6 +8,7 @@ import System.Directory (createDirectoryIfMissing, copyFile, doesPathExist, does
 import System.FilePath (takeFileName)
 import System.Posix.Directory (changeWorkingDirectory)
 
+import Log (logInfo)
 import PathFinder (PathFinderO, chain)
 
 name = "filter"
@@ -44,18 +45,27 @@ matches [] []  = True
 
 parser :: PathFinderO
 parser _ ob = doFilter
-        <$> ((ob .:? "pattern") .!= "*")
-        <*> ((ob .:? "type") .!= "?") where
-    doFilter :: String -> String -> FilePath -> IO [FilePath]
-    doFilter pattern ftype input = case matchesPattern pattern input of
+        <$> ob .:? "pattern" .!= "*"
+        <*> ob .:? "wholePath" .!= False
+        <*> ob .:? "type" .!= "?" where
+    doFilter :: String -> Bool -> String -> FilePath -> IO [FilePath]
+    doFilter pattern wholePath ftype input = case matchesPattern pattern wholePath input of
         True -> do
             typeOk <- matchesType ftype input
-            if typeOk then return [input] else return []
-        False -> return []
-    matchesPattern :: String -> FilePath -> Bool
-    matchesPattern pattern input = let
+            if typeOk
+                then do
+                    logInfo $ "Filter kept: " ++ input
+                    return [input]
+                else do
+                    logInfo $ "Wrong type (not " ++ ftype ++ "): " ++ input
+                    return []
+        False -> do
+            logInfo $ "Pattern (" ++ pattern ++ ") match failed: " ++ input
+            return []
+    matchesPattern :: String -> Bool -> FilePath -> Bool
+    matchesPattern pattern wholePath input = let
         patternBits = split (== '*') pattern
-        fn = takeFileName input in
+        fn = if wholePath then input else takeFileName input in
             matches pattern fn
     matchesType :: String -> FilePath -> IO Bool
     matchesType t input
