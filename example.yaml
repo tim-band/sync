@@ -2,7 +2,16 @@ t: all
 of:
   - t: copy
     from-root:
-      - t: drives
+      - t: all
+        of:
+        - - t: drives
+          - t: filter
+            pattern: '/media/tim/*'
+            whole-path: true
+        - - t: path
+            is: /run/user/1000/gvfs
+          - t: directories
+            max-depth: 1
       - t: directories
         max-depth: 2
       - t: filter
@@ -14,16 +23,31 @@ of:
           - - t: drives
             - t: all
               of:
+                - - t: filter
+                    pattern: sileo-win-sftp
+                  - t: path
+                    is: 'E:/Pictures'
+                - - t: filter
+                    pattern: sileo-wifi-sftp
+                  - t: path
+                    is: 'E:/Pictures'
                 - t: filter
                   pattern: sileo-win-pictures
                 - t: filter
                   pattern: sileo-wifi-pictures
+            - t: filter
+              type: d
     from-file:
       - t: directories
         max-depth: 2
       - t: filter
         type: f
-        pattern: '*.jpg'
+        pattern:
+          - '*.JPG'
+          - '*.jpg'
+          - '*.mp4'
+          - '*.mov'
+          - '*.MOV'
     to-file:
       t: date
-      format: '%Y/%m_%d'
+      format: '%Y/%Y_%m_%d'

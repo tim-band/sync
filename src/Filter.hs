@@ -3,7 +3,8 @@ module Filter (name, parser) where
 import qualified Data.Yaml
 import Data.List.Extra (split)
 import Data.Maybe (fromMaybe)
-import Data.Text (pack)
+import Data.Text (pack, unpack)
+import qualified Data.Vector as Vec
 import System.Directory (createDirectoryIfMissing, copyFile, doesPathExist, doesDirectoryExist, doesFileExist)
 import System.FilePath (takeFileName)
 import System.Posix.Directory (changeWorkingDirectory)
@@ -45,11 +46,11 @@ matches [] []  = True
 
 parser :: PathFinderO
 parser _ ob = doFilter
-        <$> ob .:? "pattern" .!= "*"
-        <*> ob .:? "wholePath" .!= False
+        <$> ob .:? "pattern"
+        <*> ob .:? "whole-path" .!= False
         <*> ob .:? "type" .!= "?" where
-    doFilter :: String -> Bool -> String -> FilePath -> IO [FilePath]
-    doFilter pattern wholePath ftype input = case matchesPattern pattern wholePath input of
+    doFilter :: Maybe Data.Yaml.Value -> Bool -> String -> FilePath -> IO [FilePath]
+    doFilter patterns wholePath ftype input = case matchesPatterns patterns wholePath input of
         True -> do
             typeOk <- matchesType ftype input
             if typeOk
@@ -60,8 +61,17 @@ parser _ ob = doFilter
                     logInfo $ "Wrong type (not " ++ ftype ++ "): " ++ input
                     return []
         False -> do
-            logInfo $ "Pattern (" ++ pattern ++ ") match failed: " ++ input
+            logInfo $ "Pattern (" ++ show patterns ++ ") match failed: " ++ input
             return []
+    matchesPatterns :: Maybe Data.Yaml.Value -> Bool -> FilePath -> Bool
+    matchesPatterns Nothing _ _ = True
+    matchesPatterns (Just v) wholePath input = case v of
+        Data.Yaml.String s -> matchesPattern (unpack s) wholePath input
+        Data.Yaml.Array ar -> Vec.any matchesValue ar where
+            matchesValue v = case v of
+                Data.Yaml.String s -> matchesPattern (unpack s) wholePath input
+                _ -> error "Fix Filter-- array of non-strings pattern should not have parsed"
+        _ -> error "Fix Filter-- non-string non-array pattern should not have parsed"
     matchesPattern :: String -> Bool -> FilePath -> Bool
     matchesPattern pattern wholePath input = let
         patternBits = split (== '*') pattern
