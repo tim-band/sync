@@ -49,6 +49,6 @@ parser trans ob = do
                         ifM (doesPathExist toPath) (return []) $ do
                             logInfo $ "to " ++ toPath
                             let toPathDir = takeDirectory toPath
-                            -- createDirectoryIfMissing True toPathDir
-                            -- copyFile fromFile toPath
+                            createDirectoryIfMissing True toPathDir
+                            copyFile fromFile toPath
                             return [toPath]
