@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: c1af96df7986d0324960e494fb9365ac764cfca56fc0614ad04148941dddc22c
+-- hash: 3ea9d8f7147f9fe647b338ea443ed736f21b0842881f85b85e2242d4e2b92368
 
 name:           sync
 version:        0.1.0.0
@@ -31,6 +31,7 @@ library
   build-depends:
       aeson >=1.4.7.1 && <2
     , base >=4.7 && <5
+    , cmdargs >=0.10.20 && <0.11
     , directory >=1.3.6.0 && <2
     , extra >=1.6.21 && <2
     , filepath >=1.4.2.1 && <2
@@ -67,6 +68,7 @@ executable sync-exe
   build-depends:
       aeson >=1.4.7.1 && <2
     , base >=4.7 && <5
+    , cmdargs >=0.10.20 && <0.11
     , directory >=1.3.6.0 && <2
     , extra >=1.6.21 && <2
     , filepath >=1.4.2.1 && <2
@@ -90,6 +92,7 @@ test-suite sync-test
   build-depends:
       aeson >=1.4.7.1 && <2
     , base >=4.7 && <5
+    , cmdargs >=0.10.20 && <0.11
     , directory >=1.3.6.0 && <2
     , extra >=1.6.21 && <2
     , filepath >=1.4.2.1 && <2
