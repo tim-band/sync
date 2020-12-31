@@ -1,5 +1,6 @@
 module Filter (name, parser) where
 
+import Control.Monad.Trans.Class (lift)
 import qualified Data.Yaml
 import Data.List.Extra (split)
 import Data.Maybe (fromMaybe)
@@ -10,7 +11,7 @@ import System.FilePath (takeFileName)
 import System.Posix.Directory (changeWorkingDirectory)
 
 import Log (logInfo)
-import PathFinder (PathFinderO, chain)
+import PathFinder (Output, PathFinderO, chain)
 
 name = "filter"
 
@@ -49,10 +50,10 @@ parser _ ob = doFilter
         <$> ob .:? "pattern"
         <*> ob .:? "whole-path" .!= False
         <*> ob .:? "type" .!= "?" where
-    doFilter :: Maybe Data.Yaml.Value -> Bool -> String -> FilePath -> IO [FilePath]
+    doFilter :: Maybe Data.Yaml.Value -> Bool -> String -> FilePath -> Output
     doFilter patterns wholePath ftype input = case matchesPatterns patterns wholePath input of
         True -> do
-            typeOk <- matchesType ftype input
+            typeOk <- lift $ matchesType ftype input
             if typeOk
                 then do
                     logInfo $ "Filter kept: " ++ input
@@ -77,7 +78,6 @@ parser _ ob = doFilter
         patternBits = split (== '*') pattern
         fn = if wholePath then input else takeFileName input in
             matches pattern fn
-    matchesType :: String -> FilePath -> IO Bool
     matchesType t input
         | t == "?" = return True
         | t == "f" = doesFileExist input

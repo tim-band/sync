@@ -11,7 +11,7 @@ import System.FilePath (takeFileName)
 import System.Posix.Directory (changeWorkingDirectory)
 
 import Log (logInfo)
-import PathFinder (PathFinderO, PathFinder, chain)
+import PathFinder (Output, PathFinderO, PathFinder, chain)
 
 name = "first"
 
@@ -28,7 +28,7 @@ parser tr ob = do
         doFirstL vs = do
             pfs <- mapM tr vs
             return $ doFirst pfs
-        doFirst :: [FilePath -> IO [FilePath]] -> FilePath -> IO [FilePath]
+        doFirst :: [FilePath -> Output] -> FilePath -> Output
         doFirst [] _ = return []
         doFirst (pf:pfs) input = do
             rs <- pf input

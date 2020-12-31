@@ -1,12 +1,15 @@
 {-# LANGUAGE DeriveDataTypeable #-}
+
 module Main where
 
-import System.FilePath (FilePath, isPathSeparator)
-import Transformer (parseValue)
-import Data.Yaml (decodeFileThrow, Value, parseEither)
-import System.IO (putStrLn)
 import Control.Monad (forM_)
+import Control.Monad.Trans.State.Strict (evalStateT)
+import Data.Map.Strict (empty)
+import Data.Yaml (decodeFileThrow, Value, parseEither)
 import System.Console.CmdArgs.Implicit (cmdArgs, (&=), opt, program, summary, typFile, help, Data, Typeable)
+import System.FilePath (FilePath, isPathSeparator)
+import System.IO (putStrLn)
+import Transformer (parseValue)
 
 newtype SyncArgs = SyncArgs
   { config :: String
@@ -25,6 +28,6 @@ main = do
     case parseEither parseValue v of
         Left msg -> putStrLn ("Parse error: " ++ msg)
         Right tr -> do
-            ps <- tr "/"
+            ps <- evalStateT (tr "/") empty
             forM_ ps $ \p -> do
                 putStrLn p

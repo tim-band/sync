@@ -1,0 +1,61 @@
+t: def
+let:
+  from-root:
+    - t: first
+      of:
+        - - t: drives
+          - t: all
+            of:
+              - - t: filter
+                  pattern: sileo-win-sftp
+                - t: path
+                  is: 'E:/music'
+              - - t: filter
+                  pattern: sileo-wifi-sftp
+                - t: path
+                  is: 'E:/music'
+              - t: filter
+                pattern: sileo-win-music
+              - t: filter
+                pattern: sileo-wifi-music
+          - t: filter
+            type: d
+  to-root:
+    - t: path
+      is: '/media/tim/MUSIC'
+in:
+  t: all
+  of:
+    - t: copy
+      to-root:
+        - t: get
+          from: to-root
+      from-root:
+        - t: get
+          from: from-root
+      from-file:
+        - t: directories
+          max-depth: 4
+        - t: filter
+          type: f
+          pattern:
+            - '*.mp3'
+      to-file:
+        t: id
+    - t: copy
+      cmd: 'convert %1 -resize 150x150 %2'
+      to-root:
+        - t: get
+          from: to-root
+      from-root:
+        - t: get
+          from: from-root
+      from-file:
+        - t: directories
+          max-depth: 4
+        - t: filter
+          type: f
+          pattern:
+            - 'AlbumArt_*_Small.jpg'
+      to-file:
+        t: id

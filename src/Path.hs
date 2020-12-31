@@ -6,13 +6,14 @@ import System.Directory (makeAbsolute)
 import System.FilePath (isAbsolute, (</>))
 
 import Log (logInfo)
-import PathFinder (PathFinderO)
+import PathFinder (Output, PathFinderO)
 
+name :: String
 name = "path"
 
 parser :: PathFinderO
-parser _ ob = path <$> ob .: (pack "is") where
-    path :: String -> FilePath -> IO [FilePath]
+parser _ ob = path <$> ob .: pack "is" where
+    path :: String -> FilePath -> Output
     path p input = if isAbsolute p
         then do
             logInfo $ "path: " ++ p

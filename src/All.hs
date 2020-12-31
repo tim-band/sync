@@ -11,7 +11,7 @@ import System.FilePath (takeFileName)
 import System.Posix.Directory (changeWorkingDirectory)
 
 import Log (logInfo)
-import PathFinder (PathFinderO, PathFinder, chain)
+import PathFinder (Output, PathFinderO, PathFinder, chain)
 
 name = "all"
 
@@ -28,7 +28,7 @@ parser tr ob = do
         doAllL vs = do
             pfs <- mapM tr vs
             return $ doAll pfs
-        doAll :: [FilePath -> IO [FilePath]] -> FilePath -> IO [FilePath]
+        doAll :: [FilePath -> Output] -> FilePath -> Output
         doAll pfs input = do
             rss <- mapM (\pf -> pf input) pfs
             return $ concat rss

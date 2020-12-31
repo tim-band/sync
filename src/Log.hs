@@ -1,3 +1,6 @@
-module Log (logInfo) where
+module Log (logInfo, logWarning) where
 
-logInfo s = putStrLn ("INFO: " ++ s)
+import Control.Monad.Trans.Class (lift)
+
+logInfo s = (lift . putStrLn) ("INFO: " ++ s)
+logWarning s = (lift . putStrLn) ("WARNING: " ++ s)
