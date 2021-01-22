@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: b0afff660e4e52bfbe97af60a7246c26ae1b33fd33bf9840dfea23c41a546e76
+-- hash: c6db8064cccb93d4e5f12b88b23275227fba386d88689198446a931a1c3bd07c
 
 name:           sync
 version:        0.1.0.0
@@ -50,6 +50,7 @@ library
       Copy
       DatePath
       Def
+      Delete
       Directories
       Drives
       Filter

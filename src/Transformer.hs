@@ -16,6 +16,7 @@ import qualified All
 import qualified Copy
 import qualified DatePath
 import qualified Def
+import qualified Delete
 import qualified Directories
 import qualified Drives
 import qualified Filter
@@ -31,6 +32,8 @@ tags =
     [ (All.name, All.parser)
     , (Copy.name, Copy.parser)
     , (DatePath.name, DatePath.parser)
+    , (Def.name, Def.parser)
+    , (Delete.name, Delete.parser)
     , (Directories.name, Directories.parser)
     , (Drives.name, Drives.parser)
     , (Filter.name, Filter.parser)
@@ -38,7 +41,6 @@ tags =
     , (Get.name, Get.parser)
     , (Home.name, Home.parser)
     , (Id.name, Id.parser)
-    , (Def.name, Def.parser)
     , (Path.name, Path.parser)
     ]
 

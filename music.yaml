@@ -43,7 +43,7 @@ in:
       to-file:
         t: id
     - t: copy
-      cmd: 'convert %1 -resize 150x150 %2'
+      cmd: 'convert %1 -resize 128x128 %2'
       to-root:
         - t: get
           from: to-root
@@ -54,8 +54,41 @@ in:
         - t: directories
           max-depth: 4
         - t: filter
-          type: f
-          pattern:
-            - 'AlbumArt_*_Small.jpg'
+          type: d
+        - t: first
+          of:
+            - - t: directories
+                max-depth: 1
+              - t: filter
+                type: f
+                pattern:
+                  - 'AlbumArt_*_Large.jpg'
+            - - t: directories
+                max-depth: 1
+              - t: filter
+                type: f
+                pattern:
+                  - '*.jpg'
       to-file:
         t: id
+    - t: delete
+      directories:
+        - t: get
+          from: to-root
+        - t: directories
+          max-depth: 1
+        - t: filter
+          type: d
+          pattern:
+            - 'System Volume Information'
+            - '.Trash-*'
+    - t: delete
+      files:
+        - t: get
+          from: to-root
+        - t: directories
+          max-depth: 4
+        - t: filter
+          type: f
+          pattern:
+            - 'desktop.ini'
