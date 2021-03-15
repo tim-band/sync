@@ -2,21 +2,8 @@ t: all
 of:
   - t: copy
     from-root:
-      - t: all
-        of:
-        - - t: drives
-          - t: filter
-            pattern: '/media/tim/*'
-            whole-path: true
-        - - t: path
-            is: /run/user/1000/gvfs
-          - t: directories
-            max-depth: 1
-      - t: directories
-        max-depth: 2
-      - t: filter
-        type: d
-        pattern: DCIM
+      - t: path
+        is: /home/tim/Pictures/sue
     to-root:
       - t: first
         of:
@@ -51,4 +38,5 @@ of:
           - '*.MOV'
     to-file:
       t: date
+      when: exif
       format: '%Y/%Y_%m_%d'
