@@ -43,7 +43,7 @@ in:
       to-file:
         t: id
     - t: copy
-      cmd: 'convert %1 -resize 128x128 %2'
+      cmd: 'convert %1 -resize 128x128^ -gravity Center -extent 128x128 %2'
       to-root:
         - t: get
           from: to-root
